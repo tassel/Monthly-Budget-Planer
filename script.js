@@ -115,7 +115,7 @@ function renderTable() {
         // Category Header Row
         tableBody.innerHTML += `
             <tr>
-                <th colspan="6" style="background-color: #252f3d; color: white; text-align: center; font-size: 1.2em;">
+                <th colspan="6" class="thTitle" style="background-color: #252f3d; color: white; text-align: center; font-size: 2.2em; box-shadow: rgba(150, 150, 193, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;">
                     <input type="text" 
                            value="${category.name}" 
                            onchange="updateValue(${categoryIndex}, null, 'name', this.value)" 
@@ -170,9 +170,9 @@ function renderTable() {
         // Buttons for Adding Expenses & Removing Category
         tableBody.innerHTML += `<tr>
             <td colspan="6">
-                <button style="background-color: #238636; color: #fefefe; font-weight: 600;" 
+                <button style="background-color: #238636; color: #fefefe; font-weight: 600; margin-bottom: 15px;" 
                         onclick="addExpense(${categoryIndex})">Add Expense to ${category.name}</button>
-                <button style="background-color: #882232; color: #fefefe; font-weight: 600;" 
+                <button style="background-color: #882232; color: #fefefe; font-weight: 600; margin-bottom: 15px;" 
                         onclick="removeCategory(${categoryIndex})">Remove Category</button>
             </td>
         </tr>`;
@@ -206,17 +206,37 @@ function renderChart() {
   const chartData = budgetData.categories.map(category => {
     return category.items.reduce((sum, item) => sum + parseFloat(item.actual) || 0, 0);
   });
+    
   if (chart) chart.destroy();
-    chart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: budgetData.categories.map(c => c.name),
+  chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: budgetData.categories.map(c => c.name),
         datasets: [{
           data: chartData,
-          backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40']
+          backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff9f40', '#84b56d', '#692cbf', '#00f56a', '#002bc7'],
+          color: '#fefefe',
+          borderColor: '#fefefe',
+          borderWidth: 1
         }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fefefe', // White legend text
+              font: { size: 16 } // Font size for legend text
+            }
+          },
+          title: {
+            display: true,
+            text: 'Monthly Expenses:',
+            font: { size: 20 }, // Font size for title
+            color: '#fefefe' // White title text
+          }
+        }
       }
     });
- }
+  }
 
 loadData();
