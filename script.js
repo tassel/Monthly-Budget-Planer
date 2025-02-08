@@ -3,23 +3,47 @@ let budgetData = {
  };
 let chart;
 
+// --- For Caching/Testing
+// function saveData() {
+//   localStorage.setItem('budgetData', JSON.stringify(budgetData));
+//   localStorage.setItem('monthlyIncome', document.getElementById('monthlyIncome').value);
+// }
 function saveData() {
-  localStorage.setItem('budgetData', JSON.stringify(budgetData));
-  localStorage.setItem('monthlyIncome', document.getElementById('monthlyIncome').value);
+    fetch("save_budget.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categories: budgetData.categories, income: document.getElementById('monthlyIncome').value })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data.message))
+    .catch(error => console.error("Error saving data:", error));
 }
 
+// --- For Caching/Testing
+// function loadData() {
+//   const storedData = localStorage.getItem('budgetData');
+//   const storedIncome = localStorage.getItem('monthlyIncome');
+//   if (storedData) {
+//     budgetData = JSON.parse(storedData);
+//   }
+//   if (storedIncome) {
+//     document.getElementById('monthlyIncome').value = storedIncome;
+//   }
+//   renderTable();
+//   renderChart();
+//   updateBalance();
+// }
 function loadData() {
-  const storedData = localStorage.getItem('budgetData');
-  const storedIncome = localStorage.getItem('monthlyIncome');
-  if (storedData) {
-    budgetData = JSON.parse(storedData);
-  }
-  if (storedIncome) {
-    document.getElementById('monthlyIncome').value = storedIncome;
-  }
-  renderTable();
-  renderChart();
-  updateBalance();
+    fetch("load_budget.php")
+    .then(response => response.json())
+    .then(data => {
+        budgetData.categories = data.categories || [];
+        document.getElementById('monthlyIncome').value = data.income || 0;
+        renderTable();
+        renderChart();
+        updateBalance();
+    })
+    .catch(error => console.error("Error loading data:", error));
 }
 
 function addCategory() {
