@@ -1,4 +1,4 @@
-# Simple Personal Monthly Budget Planer chartjs
+# Simple Personal Monthly Budget Planer using "chart.js"
 
 Preview can be seen here: https://codepen.io/tassel-the-sans/pen/MYgNMvb
 
