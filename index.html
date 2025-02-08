@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Monthly Budget</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- Simple Personal Monthly Budget Planer using https://www.chartjs.org/
+
+<!-- I thought I would make a simple one, but it turned out a little messier than it needed to be. -->
+
+<div class="container">
+  <h1>Personal Monthly Budget</h1>
+  <div class="income-container">
+    My Monthly Income:<input class="inputFieldIncome" type="number" id="monthlyIncome" value="0" oninput="updateBalance()">
+  </div>
+  
+  <button class="customButton" onclick="addCategory()">Add Category</button>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Category:</th>
+          <th>Expense:</th>
+          <th>Projected Cost:</th>
+          <th>Actual Cost:</th>
+          <th>Difference:</th>
+          <th>Actions:</th>
+        </tr>
+      </thead>
+      <tbody id="expenseTable">
+        <!-- Expense rows will be inserted dynamically -->
+      </tbody>
+    </table>
+        
+    <div class="OutputFieldTotal" id="total-expenses">Total Monthly Expenses: 0</div>
+    <div class="OutputFieldTotal" id="balance-result">Balance: 0</div>
+    <canvas id="expenseChart"></canvas>
+</div>
+<!-- partial -->
+  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
