@@ -116,7 +116,11 @@ function renderTable() {
         tableBody.innerHTML += `
             <tr>
                 <th colspan="6" style="background-color: #252f3d; color: white; text-align: center; font-size: 1.2em;">
-                    <input type="text" value="${category.name}" onchange="updateValue(${categoryIndex}, null, 'name', this.value)" style="background: transparent; border: none; color: white; font-size: 1em; font-weight: bold; text-align: center;">
+                    <input type="text" 
+                           value="${category.name}" 
+                           onchange="updateValue(${categoryIndex}, null, 'name', this.value)" 
+                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 30);" 
+                           style="background: transparent; border: none; color: white; font-size: 1em; font-weight: bold; text-align: center;">
                 </th>
             </tr>
         `;
@@ -126,12 +130,26 @@ function renderTable() {
             let diff = expense.actual - expense.projected;
             let row = `<tr>
                 <td>${category.name}</td> <!-- Show category name in the "Category" column -->
-                <td><input style="font-size: 1em; font-weight: 600;" type="text" value="${expense.name}" onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'name', this.value)"></td>
-                <td><input style="font-size: 1em; font-weight: 600;" type="number" value="${expense.projected}" onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'projected', this.value)"></td>
-                <td><input style="font-size: 1em; font-weight: 600;" type="number" value="${expense.actual}" onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'actual', this.value)"></td>
+                <td><input style="font-size: 1em; font-weight: 600;" 
+                           type="text" 
+                           value="${expense.name}" 
+                           onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'name', this.value)" 
+                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 30);">
+                </td>
+                <td><input style="font-size: 1em; font-weight: 600;" 
+                           type="number" 
+                           value="${expense.projected}" 
+                           onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'projected', this.value)">
+                </td>
+                <td><input style="font-size: 1em; font-weight: 600;" 
+                           type="number" 
+                           value="${expense.actual}" 
+                           onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'actual', this.value)">
+                </td>
                 <td style="color: ${diff < 0 ? 'red' : 'green'};">${diff}</td>
                 <td>
-                    <button style="background-color: #882232; color: #fefefe; font-weight: 600;" onclick="removeExpense(${categoryIndex}, ${expenseIndex})">Remove</button>
+                    <button style="background-color: #882232; color: #fefefe; font-weight: 600;" 
+                            onclick="removeExpense(${categoryIndex}, ${expenseIndex})">Remove</button>
                 </td>
             </tr>`;
             tableBody.innerHTML += row;
@@ -152,8 +170,10 @@ function renderTable() {
         // Buttons for Adding Expenses & Removing Category
         tableBody.innerHTML += `<tr>
             <td colspan="6">
-                <button style="background-color: #238636; color: #fefefe; font-weight: 600;" onclick="addExpense(${categoryIndex})">Add Expense to ${category.name}</button>
-                <button style="background-color: #882232; color: #fefefe; font-weight: 600;" onclick="removeCategory(${categoryIndex})">Remove Category</button>
+                <button style="background-color: #238636; color: #fefefe; font-weight: 600;" 
+                        onclick="addExpense(${categoryIndex})">Add Expense to ${category.name}</button>
+                <button style="background-color: #882232; color: #fefefe; font-weight: 600;" 
+                        onclick="removeCategory(${categoryIndex})">Remove Category</button>
             </td>
         </tr>`;
     });
