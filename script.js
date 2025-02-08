@@ -119,7 +119,7 @@ function renderTable() {
                     <input type="text" 
                            value="${category.name}" 
                            onchange="updateValue(${categoryIndex}, null, 'name', this.value)" 
-                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 30);" 
+                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').substring(0, 30);" 
                            style="background: transparent; border: none; color: white; font-size: 1em; font-weight: bold; text-align: center;">
                 </th>
             </tr>
@@ -134,7 +134,7 @@ function renderTable() {
                            type="text" 
                            value="${expense.name}" 
                            onchange="updateValue(${categoryIndex}, ${expenseIndex}, 'name', this.value)" 
-                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9\s]/g, '').substring(0, 30);">
+                           oninput="this.value = this.value.replace(/[^a-zA-Z0-9 ]/g, '').substring(0, 30);">
                 </td>
                 <td><input style="font-size: 1em; font-weight: 600;" 
                            type="number" 
